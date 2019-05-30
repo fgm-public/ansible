@@ -1,0 +1,45 @@
+---
+
+# WARNING: Do not change this order or the process will fail
+
+- include: dns.yml
+  when: ansible_distribution != 'Ubuntu'
+  tags: ad-dns
+
+- include: netplan.yml
+  when: >
+         netconfig is defined and
+         ansible_distribution == 'Ubuntu'
+  tags: netplan
+
+- include: ad_certificate.yml
+  tags: ad-certificate
+
+- include: ntp.yml
+  tags: ntpd
+
+- include: krb5.yml
+  tags: krb5
+
+- include: sssd.yml
+  when: sssd is defined
+  tags: sssd
+
+- include: hosts.yml
+  tags: hosts
+
+- include: pam.yml
+  tags: pam
+
+- include: smb.yml
+  when: winbind is defined
+  tags: samba
+
+- name: Install utilities
+  apt:
+    name: ['krb5-user', 'realmd', 'sssd-tools', 'adcli', 'samba-common-bin']
+    state: latest
+    update_cache: true
+  register: install
+  ignore_errors: True
+  tags: packages

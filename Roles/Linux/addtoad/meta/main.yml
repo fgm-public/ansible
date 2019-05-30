@@ -1,0 +1,5 @@
+---
+#Public version 28.05.2019
+#Based on Ted Salmon (LasLabs) role:
+#https://galaxy.ansible.com/laslabs/linux-active-directory
+#https://github.com/LasLabs/ansible-linux-active-directory

@@ -1,0 +1,28 @@
+---
+
+# Netplan defaults
+
+# Defines the need for network configuration
+netconfig: true
+ip: 2
+ipaddr: 10.60.1.{{ip}}/16
+
+
+#Defines ad integration provider
+winbind: false
+sssd: true
+
+# sssd defaults
+ldap_description: CONTOSO
+ldap_server_ip: 10.60.100.12,10.60.100.13,10.60.100.14
+ldap_domain: corp.contoso.com
+ldap_server: ldaps://DC1.corp.contoso.com,ldaps://DC2.corp.contoso.com,ldaps://DC3.corp.contoso.com
+ldap_bind_dn: comp.account.admin@corp.contoso.com
+
+ldap_bind_pw: !vault |
+    $ANSIBLE_VAULT;1.1;AES256
+
+ldap_user_base: OU=Accounting,OU=Departments,DC=corp,DC=contoso,DC=com
+ldap_group_base: OU=Accounting,OU=Departments,DC=corp,DC=contoso,DC=com
+
+sssd_debug_level: 'debug_level = 7'

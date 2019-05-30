@@ -1,0 +1,14 @@
+---
+
+- name: Apply netplan
+  command: 'netplan apply'
+  tags: network
+
+- name: Restart samba
+  service:
+    name: "{{ item }}"
+    state: restarted
+  with_items:
+    - smbd
+    - nmbd
+  tags: samba

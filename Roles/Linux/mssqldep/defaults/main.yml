@@ -1,0 +1,11 @@
+---
+
+#Required packages
+packages:
+  - mssql-server
+  - mssql-tools
+
+instance_edition: Express
+
+sa_password: !vault |
+             $ANSIBLE_VAULT;1.1;AES256

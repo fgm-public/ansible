@@ -1,0 +1,35 @@
+---
+
+# Configure the system DNS to use the AD DC
+
+# Ubuntu Specific Setup
+
+- name: Add DNS to Resolv.conf template - /etc/resolvconf/resolv.conf.d/head
+  template:
+    src: resolv.conf.j2
+    dest: /etc/resolv.conf
+    owner: root
+    mode: 0644
+
+  when: >
+        ansible_distribution == 'Debian' or
+        ansible_distribution == 'Ubuntu'
+  
+# CentOS / RHEL Specific Setup
+
+- name: Add DNS to /etc/sysconfig/network
+  lineinfile:
+    dest: /etc/sysconfig/network
+    state: present
+    line: "DNS1= {{ldap_server_ip }}"
+  when: >
+        ansible_distribution == 'CentOS' or
+        ansible_distribution == 'Red Hat Enterprise Linux'
+
+- name: Restart Networking for DNS to take effect
+  service:
+    name: network
+    state: restarted
+  when: >
+        ansible_distribution == 'CentOS' or
+        ansible_distribution == 'Red Hat Enterprise Linux'

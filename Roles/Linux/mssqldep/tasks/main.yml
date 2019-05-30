@@ -1,0 +1,68 @@
+---
+
+- name: Add mssql repo
+  apt_repository:
+    repo: deb [arch=amd64] https://packages.microsoft.com/ubuntu/16.04/prod xenial main
+    state: present
+    filename: microsoft
+  tags: repos
+
+- name: Install https transport for apt
+  apt:
+    pkg: apt-transport-https
+    state: present
+    update_cache: false
+  tags: packages
+
+- name: Add an ms apt signing key
+  apt_key:
+    url: https://packages.microsoft.com/keys/microsoft.asc
+    state: present
+  tags: keys
+
+- name: Install mssql-server-2017
+  apt:
+    name: ['mssql-server','mssql-tools']
+    state: present
+    update_cache: true
+  environment:
+    ACCEPT_EULA: Y
+  register: install
+  tags: packages
+
+- name: MS ODBC SQL 17 driver
+  apt:
+    pkg: msobcsql17
+    state: present
+    update_cache: true
+  environment:
+    ACCEPT_EULA: Y
+  tags: packages
+
+- name: Configure mssql-server
+#  script: /opt/mssql/bin/mssql-conf -n setup accept-eula
+#  environment:
+#    MSSQL_PID: "{{ instance_edition }}"
+#    MSSQL_SA_PASSWORD: "{{ sa_password }}"
+  shell: MSSQL_PID="{{ instance_edition }}" MSSQL_SA_PASSWORD="{{ sa_password }}" /opt/mssql/bin/mssql-conf -n setup accept-eula
+  when: install is success
+  ignore_errors: yes
+  register: config
+  notify: restart mssql-server
+  tags: config
+
+#- include_tasks: iptables.yml
+#  when: config is success
+
+- name: Configure netfilter
+  iptables:
+    comment: allow_mssql_inbound_connections
+    table: filter
+    chain: INPUT
+    protocol: tcp
+    match: tcp
+    destination_port: 1433
+    source: 10.60.138.0/24
+    jump: ACCEPT
+  when: config is success
+  tags: iptables

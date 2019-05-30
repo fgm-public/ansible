@@ -1,0 +1,7 @@
+---
+
+- name: restart mssql-server
+  service:
+    name: mssql-server
+    state: restarted
+  tags: config

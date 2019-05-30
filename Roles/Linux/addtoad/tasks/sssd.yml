@@ -1,0 +1,23 @@
+---
+
+# Install and configure SSSD
+
+- name: Install sssd
+  apt:
+    name: sssd
+    state: latest
+    update_cache: true
+  
+- name: Setting SSSD Config - /etc/sssd/sssd.conf
+  template:
+    src: sssd.conf.j2
+    dest: /etc/sssd/sssd.conf
+    owner: root
+    mode: 0600
+  tags: sss
+  
+- name: Start SSSD and set to start on boot
+  service:
+    name: sssd
+    state: restarted
+    enabled: true

@@ -1,0 +1,20 @@
+---
+
+# Install and configure Samba
+
+- name: Install samba
+  package:
+    name: samba
+    state: latest 
+  tags: packages
+  tags: samba
+
+- name: Setting Samba Config - /etc/samba/smb.conf
+  template:
+    src: smb.conf.j2
+    dest: /etc/samba/smb.conf
+    owner: root
+    mode: 0644
+  notify: Restart samba
+  tags: config
+  tags: samba
