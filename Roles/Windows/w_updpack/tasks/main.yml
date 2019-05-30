@@ -1,0 +1,9 @@
+---
+
+- name: Upgrade all packages
+  win_chocolatey:
+    name: all
+    state: latest
+  tags:
+    - provisioning
+    - servicing

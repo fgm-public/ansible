@@ -1,0 +1,14 @@
+---
+
+- name: Ensure user Administrator is present
+  win_user:
+    name: Администратор
+    password: "{{ administrator_pass }}"
+    state: present
+    account_disabled: no
+    password_never_expires: True
+    groups:
+      - Администраторы
+  tags:
+    - provisioning
+    - servicing

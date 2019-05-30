@@ -1,0 +1,9 @@
+---
+
+domain_name: corp.contoso.com
+
+admin_name: !vault |
+            $ANSIBLE_VAULT;1.1;AES256
+
+admin_pass: !vault |
+            $ANSIBLE_VAULT;1.1;AES256

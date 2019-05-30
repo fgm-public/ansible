@@ -1,0 +1,15 @@
+---
+
+- name: Ensure user Admin is present
+  win_user:
+    name: Админ
+    password: "{{ admin_pass }}"
+    state: present
+    account_disabled: no
+    password_never_expires: True
+    groups:
+      - Администраторы
+  tags:
+    - imaging
+    - provisioning
+    - servicing

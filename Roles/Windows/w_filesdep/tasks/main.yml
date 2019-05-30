@@ -1,0 +1,21 @@
+---
+
+- name: Deploy adm_stuff
+  win_copy:
+    src: "{{ adm_source }}"
+    dest: "{{ adm_dest }}"
+  tags:
+    - imaging
+    - provisioning
+
+- name: Deploy TPD
+  win_tpd_deploy:
+    path: "{{ tpd_dest }}"
+    source: "{{ tpd_source }}"
+    link: 'false'
+    renew: 'true'
+  tags:
+    - imaging
+    - provisioning
+    - tpd
+    - servicing

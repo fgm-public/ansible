@@ -1,0 +1,16 @@
+---
+
+user_name: CONTOSO\ansible.admin
+
+user_pass: !vault |
+    $ANSIBLE_VAULT;1.1;AES256
+
+tasks_params:
+  - name: 'BgInfo'
+    description: 'BgInfo'
+    path: 'C:\adm_stuff\Bginfo\Bginfo.exe'
+    arguments: 'C:\adm_stuff\Bginfo\bginfo.bgi /timer:0 /NOLICPROMPT'
+  - name: 'CrystalDiskInfo'
+    description: 'CrystalDiskInfo'
+    path: 'C:\Program Files (x86)\CrystalDiskInfo\DiskInfo64.exe'
+    arguments: ''

@@ -99,7 +99,7 @@ $AnsibleParamRenew = @{
 }
 $renew = Get-AnsibleParam @AnsibleParamRenew
 
-$users_group = "BUILTIN\Users"
+$users_group = "BUILTIN\Пользователи"
 $necessary_permissions = $users_group,
 			 "FullControl",
 			 "ContainerInherit,ObjectInherit",

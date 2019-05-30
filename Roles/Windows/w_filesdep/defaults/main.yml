@@ -1,0 +1,7 @@
+---
+
+tpd_source: 'http://corp.contoso.com/path_to_tpd_distro'
+tpd_dest: 'C:\Program Files (x86)\tpd'
+
+adm_source: /importfs/adm_stuff
+adm_dest: C:\

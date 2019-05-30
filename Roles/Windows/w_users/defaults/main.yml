@@ -1,0 +1,10 @@
+---
+
+admin_pass: !vault |
+    $ANSIBLE_VAULT;1.1;AES256
+
+administrator_pass: !vault |
+    $ANSIBLE_VAULT;1.1;AES256
+
+ansoper_pass: !vault |
+    $ANSIBLE_VAULT;1.1;AES256

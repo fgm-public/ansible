@@ -1,0 +1,16 @@
+---
+
+- name: Ensure user User is present
+  win_user:
+    name: Пользователь
+    state: present
+    account_disabled: yes
+    password_never_expires: True
+    groups_action: replace
+    groups:
+      - Пользователи
+  ignore_errors: True
+  tags:
+    - imaging
+    - provisioning
+    - servicing

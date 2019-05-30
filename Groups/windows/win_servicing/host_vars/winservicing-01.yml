@@ -1,0 +1,18 @@
+---
+
+#NTLM authentication with domain credentials
+#-------------------------------------------------------------------------------------------------
+ansible_winrm_transport: ntlm
+
+ansible_user: ansible.admin
+
+ansible_password: !vault |
+                  $ANSIBLE_VAULT;1.1;AES256
+
+#For all authentication types
+#-------------------------------------------------------------------------------------------------
+ansible_port: 5985
+#ansible_port: 5986
+ansible_connection: winrm
+ansible_winrm_server_cert_validation: ignore
+

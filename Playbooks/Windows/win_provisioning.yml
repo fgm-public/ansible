@@ -1,0 +1,22 @@
+---
+
+- hosts: winprovisioning
+
+  gather_facts: yes
+
+  vars:
+    #redefines 'whostname' role variable
+    host_name: fb-1007-04
+
+  roles:
+    - w_timezone
+    - w_hostname
+    - w_domain
+    - w_schedule
+    - w_users
+    - w_7zip
+    - w_install
+    - w_filesdep
+    - w_updates
+    - w_updpack
+    - w_users

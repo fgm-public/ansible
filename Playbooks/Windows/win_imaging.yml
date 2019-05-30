@@ -1,0 +1,20 @@
+---
+
+- hosts: winimaging
+
+  gather_facts: yes
+
+  vars:
+    host_name: fb-wimage
+
+  roles:
+    - w_timezone
+    - w_hostname
+    - w_domain
+    - w_schedule
+    - w_users
+    - w_packages
+    - w_7zip
+    - w_install
+    - w_filesdep
+    - w_updates

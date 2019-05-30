@@ -1,0 +1,26 @@
+---
+
+- name: Create tasks
+  win_scheduled_task:
+    name: "{{ item.name }}"
+    author: "{{ user_name }}"
+    description: "{{ item.description }}"
+    path: \MyTasks
+    logon_type: interactive_token
+    triggers:
+      - type: logon
+        user_id : "{{ user_name }}"
+    username: "{{ user_name }}"
+    password: "{{ user_pass }}"
+    state: present
+    enabled: yes
+    run_level: highest
+    actions:
+    - path: "{{ item.path }}"
+      arguments: "{{ item.arguments }}"
+  with_items:
+    "{{ tasks_params }}"
+  tags:
+    - imaging
+    - provisioning
+    - servicing

@@ -1,0 +1,27 @@
+---
+
+#initial_reboot: True
+
+# Defines action type
+behavior: installed
+#behavior: searched
+
+update_log: C:\adm_stuff\wu.txt
+
+# Defines categories to update
+windows_updates_categories:
+  - 'Application'
+  - 'Connectors'
+  - 'CriticalUpdates'
+  - 'DefinitionUpdates'
+  - 'DeveloperKits'
+  - 'FeaturePacks'
+  - 'Guidance'
+  - 'SecurityUpdates'
+  - 'ServicePacks'
+  - 'Tools'
+  - 'UpdateRollups'
+  - 'Updates'
+
+# Defines whether to reboot after updates or not
+windows_updates_reboot: true

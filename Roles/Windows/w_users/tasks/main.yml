@@ -1,0 +1,34 @@
+---
+
+- name: Include administrator account provisioning
+  include_tasks: administrator.yml
+  tags:
+    - provisioning
+    - servicing
+
+- name: Include admin account provisioning
+  include_tasks: admin.yml
+  tags:
+    - imaging
+    - provisioning
+    - servicing
+
+- name: Include printer account provisioning
+  include_tasks: printer.yml
+  tags:
+    - imaging
+    - provisioning
+    - servicing
+
+- name: Include user account provisioning
+  include_tasks: user.yml
+  tags:
+    - imaging
+    - provisioning
+    - servicing
+
+- name: Include user ansoper provisioning
+  include_tasks: ansoper.yml
+  tags:
+    - provisioning
+    - servicing

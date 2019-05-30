@@ -1,0 +1,9 @@
+---
+
+- hosts: win_servicing
+
+  gather_facts: no
+
+  roles:
+    - wupdpack
+    - wupdates

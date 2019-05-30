@@ -1,0 +1,14 @@
+---
+
+- name: Set Novosibirsk TimeZone
+  win_timezone:
+    timezone: "{{ time_zone }}"
+    register: result
+  tags:
+    - imaging
+    - provisioning
+    - servicing
+
+#- name: Report time zone result
+#  debug:
+#    msg: Time zone changed from "{{ result.previous_timezone }}" to "{{ result.timezone }}"

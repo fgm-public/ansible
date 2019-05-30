@@ -1,0 +1,20 @@
+---
+
+- name: Install something
+  win_package:
+    path: \\fb-lks-fs\fb_share\Private\!distros\FineReader\FineReader9.0.msi
+    product_id: '{F9000000-0001-0000-0000-074957833700}'
+    state: present
+    user_name: "{{ user_name }}"
+    user_password: "{{ user_pass }}"
+    arguments:
+    - /norestart
+    - /quiet
+  tags:
+    - imaging
+    - provisioning
+    - servicing
+
+#    path: \\fb-lks-fs\fb_share\Public\RemoteApp\ThinPrint\Setup_ThinPrintClient_x64.exe
+#    product_id: '{C23827F2-9883-4195-9D50-F81E923ED5B7}'
+#    arguments: '/q'

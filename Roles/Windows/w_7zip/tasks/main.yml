@@ -1,0 +1,17 @@
+---
+
+- name: Copy config to "{{ file_path }}"
+  win_copy:
+    src: "{{ assocfile_source }}"
+    dest: "{{ assocfile_dest }}"
+  tags:
+    - imaging
+    - provisioning
+    - servicing
+
+- name: Add content from "{{ file_path }}" to registry
+  win_command: "reg import {{ file_path }}"
+  tags:
+    - imaging
+    - provisioning
+    - servicing

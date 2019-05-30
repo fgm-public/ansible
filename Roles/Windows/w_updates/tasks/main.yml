@@ -1,0 +1,51 @@
+---
+
+- name: reboot host before update
+  win_reboot:
+  tags:
+    - imaging
+    - provisioning
+    - servicing
+  when: initial_reboot
+  ignore_errors: True
+
+
+- name: Install updates
+  win_updates:
+    category_names:
+    - 'Application'
+    - 'Connectors'
+    - 'CriticalUpdates'
+    - 'DefinitionUpdates'
+    - 'DeveloperKits'
+    - 'FeaturePacks'
+    - 'Guidance'
+    - 'SecurityUpdates'
+    - 'ServicePacks'
+    - 'Tools'
+    - 'UpdateRollups'
+    - 'Updates'
+    state: "{{ behavior }}"
+    log_path: "{{ update_log }}"
+    reboot: yes
+  register: update_result
+  tags:
+    - imaging
+    - provisioning
+    - servicing
+
+- name: reboot if required
+  win_reboot:
+  when: update_result.reboot_required
+  tags:
+    - imaging
+    - provisioning
+    - servicing
+
+- name: Report install result
+  debug:
+    var: update_result
+  tags:
+    - imaging
+    - provisioning
+    - servicing

@@ -1,0 +1,14 @@
+---
+
+- name: Ensure user ansoper is disabled
+  win_user:
+    name: ansoper
+    password: "{{ ansoper_pass }}"
+    state: present
+    password_never_expires: True
+    account_disabled: yes
+    groups:
+      - Администраторы
+  tags:
+    - provisioning
+    - servicing

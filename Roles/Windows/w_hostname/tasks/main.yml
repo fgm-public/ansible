@@ -1,0 +1,23 @@
+---
+
+- name: Hostname message
+  debug:
+    msg: Hostname will be changed to "{{ host_name }}"
+  tags:
+    - imaging
+    - provisioning
+
+- name: Rename computer
+  win_hostname:
+    name: "{{ host_name }}"
+  register: result
+  tags:
+    - imaging
+    - provisioning
+
+- name: Reboot computer
+  win_reboot:
+  when: result.reboot_required
+  tags:
+    - imaging
+    - provisioning

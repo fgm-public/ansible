@@ -1,0 +1,8 @@
+---
+
+#assocfile_source: /importfs/adm_stuff/7zip/
+assocfile_source: 7zip.reg
+
+assocfile_dest: C:\adm_stuff\7zip
+
+file_path: '"{{ assocfile_dest }}"\7zip.reg'

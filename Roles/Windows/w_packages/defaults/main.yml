@@ -1,0 +1,15 @@
+---
+
+packages:
+  - 7zip
+  - windjview
+  - adobereader
+  - flashplayerplugin
+  - firefox
+  - googlechrome
+  - opera
+  - vlc
+  - keepass
+  - libreoffice-fresh
+  - crystaldiskinfo.install
+  - windirstat

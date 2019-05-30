@@ -1,0 +1,20 @@
+---
+
+- name: Ensure user Printer is present
+  win_user:
+    name: Принтер
+    state: present
+    password: "{{ ansible_hostname }}"
+    password_never_expires: True
+    user_cannot_change_password: yes
+    groups_action: replace
+    groups:
+      - Пользователи
+  tags:
+    - imaging
+    - provisioning
+    - servicing
+
+#- name: Ensure that new password will properly
+#  debug:
+#    var: "{{ ansible_hostname }}"
