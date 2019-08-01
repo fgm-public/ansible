@@ -1,0 +1,9 @@
+---
+
+username: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+
+# Be avare, that this password was hashed before ansible-vault encryption
+# This is 'user' module requirements
+userpass: !vault | 
+          $ANSIBLE_VAULT;1.1;AES256

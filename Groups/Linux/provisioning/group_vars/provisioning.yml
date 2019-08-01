@@ -1,0 +1,12 @@
+---
+ansible_ssh_user: 'user'
+
+ansible_pass: !vault |
+              $ANSIBLE_VAULT;1.1;AES256
+
+ansible_become_pass: !vault |
+                     $ANSIBLE_VAULT;1.1;AES256
+
+ask_become_pass: True
+
+ansible_port: 22

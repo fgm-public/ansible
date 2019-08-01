@@ -1,0 +1,43 @@
+---
+
+- name: Install packages
+  apt:
+    name: ['aptitude', 'mc']
+    state: latest
+    update_cache: true
+  register: install
+  ignore_errors: True
+  tags: provisioning
+
+- name: Upgrade all packages
+  apt:
+    upgrade: yes
+    update_cache: true
+    cache_valid_time: 86400
+  register: upgrade
+  ignore_errors: True
+  tags: provisioning
+
+- name: Add universe repo
+  apt_repository:
+    repo: " {{ item }} " 
+    state: present
+  with_items:
+    - deb http://archive.ubuntu.com/ubuntu bionic universe
+    - deb http://archive.ubuntu.com/ubuntu bionic-security universe
+    - deb http://archive.ubuntu.com/ubuntu bionic-updates universe
+  when: >
+    install is failed and
+    ansible_distribution == 'Ubuntu'
+  notify: Retry install packages
+  tags: provisioning
+
+- name: Setting debian repos 'contrib', 'non-free'
+  template:
+    src: sources.list.j2
+    dest: /etc/apt/sources.list
+    owner: root
+    mode: 0644
+  notify: Update apt repos
+  tags: config
+  tags: provisioning

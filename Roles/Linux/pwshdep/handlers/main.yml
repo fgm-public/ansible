@@ -1,0 +1,5 @@
+---
+
+- name: Change login shell for user
+  command: "/usr/bin/chsh --shell /usr/bin/pwsh {{ user_name }}"
+  tags: shell

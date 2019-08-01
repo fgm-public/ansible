@@ -1,0 +1,56 @@
+---
+# First part of initial Linux host provisioning
+
+# If not 'host_key_checking = False' in cfg file, than,
+# before run this task on new host, ssh to it and add ssh keys on offer
+
+- hosts: provisioning
+
+  gather_facts: yes
+
+  remote_user: user
+
+  become: yes
+  become_user: root
+  become_method: "{{ become_method }}"
+
+  vars:
+
+    - become_method: su
+    #-  become_method: sudo
+
+    - ask_become_pass: True
+
+    - ansible_ssh_user: 'user'
+
+    - ansible_ssh_pass: !vault |
+                        $ANSIBLE_VAULT;1.1;AES256
+
+    - su_pass: !vault |
+               $ANSIBLE_VAULT;1.1;AES256
+
+    - sudo_pass: !vault |
+                 $ANSIBLE_VAULT;1.1;AES256
+
+    - ansible_become_pass: "{{ su_pass if become_method == 'su' else sudo_pass }}"
+
+    # Overrides 'netcfg' roles defaults
+    - hostname: contoso-u2sssd
+    - ip: 18
+    - iface_name: enp3s0
+
+# Bootstrap a legacy python for Ansible
+# Although a tag 'provisioning' has been added, 'pre_tasks' is not submitted in PLAY,
+# therefore, when bootstrap new clear host don't run playbook with -t or -tags key,
+# on the first pass of PLAY
+  pre_tasks:
+    - name: 'Install python2'
+      raw: sudo apt-get -y install python
+      tags: provisioning
+  ignore_errors: True
+
+  roles:
+    - ansoper
+
+# Jump to second stage provisioning
+- import_playbook: provisioning-2.yml

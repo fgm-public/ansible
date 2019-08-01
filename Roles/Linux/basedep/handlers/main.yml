@@ -1,0 +1,13 @@
+---
+
+- name: Retry install packages
+  apt:
+    name: ['aptitude', 'mc']
+    state: latest
+    update_cache: true
+  tags: provisioning
+
+- name: Update apt repos
+  apt:
+    update_cache: true
+  tags: provisioning

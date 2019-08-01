@@ -1,0 +1,4 @@
+---
+
+- name: Install pwsh snap
+  snap: name=powershell

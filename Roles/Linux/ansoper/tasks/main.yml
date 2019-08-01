@@ -1,0 +1,41 @@
+---
+
+- name: Create group for ansible management accounts
+  group:
+    name: ansible
+    state: present
+  tags: provisioning
+
+- name: Create account for ansible management
+  user:
+    name: "{{ username }}"
+    state: present
+    update_password: on_create
+    password: "{{ userpass }}"
+    comment: 'ansible operator'
+    group: ansible
+    groups: 'sudo'
+    shell: /bin/bash
+  tags: provisioning
+
+- name: Copy rsa keys for ansible management account
+  authorized_key:
+    user: ansoper
+    state: present
+    key: "{{ lookup('file', '/home/ansoper/.ssh/id_rsa.pub')}}"
+  tags: provisioning
+
+- name: Configure ssh server on manageable host
+  copy:
+    src: sshd_config
+    dest: /etc/ssh/sshd_config
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  notify: Restart sshd
+  register: config
+  tags: provisioning
+
+#- include_tasks: iptables.yml
+#  when: config is success

@@ -1,0 +1,36 @@
+---
+
+- name: install NFS package
+  apt:
+    name: "{{ nfs_srvpackage }}"
+    state: present
+    update_cache: true
+  tags: install
+
+- name: Create directory for export
+  file:
+    path: /exportfs
+    state: directory
+    owner: root
+    group: root
+    mode: 0777
+  when: nfs_export is defined
+  tags: share
+
+- name: Copy exports file.
+  template:
+    src: exports.j2
+    dest: /etc/exports
+    owner: root
+    group: root
+    mode: 0644
+  when: nfs_export is defined
+  notify: reload nfs
+  tags: setup
+
+- name: ensure nfs is running.
+  service:
+    name: "{{ nfs_srvdaemon }}"
+    state: started
+    enabled: yes
+  tags: setup

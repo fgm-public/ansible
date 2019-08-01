@@ -1,0 +1,9 @@
+---
+
+- name: Add automount task to crontab
+  cron:
+    name: "mount_nfs_shares"
+    special_time: reboot
+    job: "/etc/autorun/mount_nfs_shares.sh"
+  tags: share
+  tags: cron

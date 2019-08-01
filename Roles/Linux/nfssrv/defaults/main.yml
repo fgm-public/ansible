@@ -1,0 +1,10 @@
+---
+
+nfs_srvpackage: nfs-kernel-server
+
+nfs_srvdaemon: "{{ nfs_srvpackage }}"
+
+access_scope: "10.60.1.0/24"
+#access_scope: "*"
+
+exports: ["/exportfs {{ access_scope }}(rw,sync,no_root_squash,no_subtree_check)"]

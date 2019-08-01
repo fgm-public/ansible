@@ -1,0 +1,12 @@
+---
+
+- name: Configure netfilter
+  iptables_raw:
+    name: allow_ssh_inbound_connections
+    ipversion: 4
+    keep_unmanaged: yes
+    rules: |
+      -P FORWARD DROP
+      -P INPUT DROP
+      -A INPUT -p tcp --dport 22 --src 10.60.1.0/24 -j ACCEPT
+  tags: iptables

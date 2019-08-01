@@ -1,0 +1,7 @@
+# Copy to /etc/autorun
+# Then crontab -e
+# @reboot /etc/autorun/mount_nfs_shares.sh
+
+#!/bin/sh
+
+mount 192.168.1.190:/exportfs /importfs

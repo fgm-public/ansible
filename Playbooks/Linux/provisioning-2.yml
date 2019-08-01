@@ -1,0 +1,43 @@
+---
+# Second part of initial Linux host provisioning
+
+- hosts: 10.60.1.{{ip}}
+
+  gather_facts: yes
+
+  remote_user: Ansible
+
+  become: yes
+  become_user: root
+  become_method: "{{ become_method }}"
+
+  vars:
+
+    - ansible_ssh_user: 'Ansible'
+
+    - become_method: su
+    #-  become_method: sudo
+
+    - ask_become_pass: True
+
+    - su_pass: !vault |
+               $ANSIBLE_VAULT;1.1;AES256
+
+    - sudo_pass: !vault |
+               $ANSIBLE_VAULT;1.1;AES256
+
+    - ansible_become_pass: "{{ su_pass if become_method == 'su' else sudo_pass }}"
+
+    # Overrides 'netcfg' roles defaults
+    - hostname: contoso-u2sssd
+    - ip: 22
+    - iface_name: enp3s0
+
+    - ansible_ssh_port: 222
+
+  roles:
+    - basedep
+    - nfsclnt
+    - netcfg
+    - pwshdep
+    - reboot
